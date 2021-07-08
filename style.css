@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  width: 100%;
+}
+
+.draw {
+  flex-grow:1;
+  border: 1px solid black;
+}
+
+.tb1 {
+  height: 95%;
+  width: 100px;
+  border: 1px solid black;
+}
+
+.tb2 {
+  height: 95%;
+  flex-grow: 1;
+  border: 1px solid black;
+}
+
+.btn {
+  height: 95%;
+  width: 100px;
+}
+
+.canvas {
+  height: 100%;
+  width: 100%;
+}
+
+
