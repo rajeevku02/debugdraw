@@ -40,8 +40,9 @@ function draw() {
 }
 
 $(function() {
-    console.log( "ready!" );
     setSize();
+    var canvas = document.getElementById("canvas");
+    attachEvents(canvas);
 });
 
 const fixCanvas = function(cnv, width, height) {
@@ -59,4 +60,41 @@ setSize = function() {
     var rect = vport.getBoundingClientRect();
     var panel = document.getElementById("canvas");
     fixCanvas(panel, rect.width, rect.height);
+}
+
+attachEvents = function(canvasElement) {
+    var mdown = false;
+    var initialX = 0;
+    var initialY = 0;
+    canvasElement.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        scrollX += -e.deltaX;
+        scrollY += -e.deltaY;
+        draw();
+    });
+
+    window.bean.on(canvasElement, 'mousedown', function (e) {
+        if (e.button != 0) {
+          return;
+        }
+        initialX = e.offsetX - scrollX;
+        initialY = e.offsetY - scrollY;
+        mdown = true;
+    });
+
+    window.bean.on(canvasElement, 'mouseup', function (e) {
+        if (e.button == 0) {
+          mdown = false;
+        }
+    });
+
+    window.bean.on(canvasElement, 'mousemove', function (e) {
+        e.preventDefault();
+        if (!mdown || e.button != 0) {
+          return;
+        }
+        scrollX = e.offsetX - initialX;
+        scrollY = e.offsetY - initialY;
+        draw();
+    });
 }
